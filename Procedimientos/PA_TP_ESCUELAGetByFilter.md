@@ -8,7 +8,7 @@ Procedimiento CRUD para consultar escuelas con filtros dinámicos y paginación.
 flowchart TD
     A[Inicio: PA_TP_ESCUELAGetByFilter] --> B[Recibe filtros opcionales<br/>y parámetros paginación]
     B --> C[Calcula @offset y @newsize<br/>según @pag y @TamPag]
-    C --> D{¿@pag = 0?}
+    C --> D{¿ @pag = 0?}
     
     D -->|Sí| E[offset = @pag<br/>newsize = @TamPag]
     D -->|No| F[offset = @pag*@TamPag+1<br/>newsize = @TamPag-1]

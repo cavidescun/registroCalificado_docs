@@ -1,8 +1,30 @@
 ### PA_TP_GESTORDeleteLog
 
+Procedimiento de eliminación lógica que desactiva gestores en la tabla TP_GESTOR. Valida dependencias antes de proceder, utiliza tabla temporal para verificar referencias activas y realiza eliminación lógica (Estado=0) en lugar de eliminación física, manteniendo integridad referencial.
+
 #### Diagrama de flujo
 
 ```mermaid
+flowchart TD
+    A[Inicio: PA_TP_GESTORDelete] --> B[Recibe Id, Auditoria]
+    B --> C[DECLARE variables y tabla temporal @tDepenActiva]
+    C --> D[EXEC ValidarDependencias para CUN.TP_GESTOR]
+    D --> E[INSERT resultados en @tDepenActiva]
+    E --> F[SELECT COUNT para verificar dependencias]
+    F --> G{¿ @cantidad >= 1?}
+    G -->|Sí| H[SELECT TOP 1 esquema y tabla dependiente]
+    H --> I[SET mensaje con tabla dependiente]
+    I --> J[RAISERROR y RETURN]
+    G -->|No| K[UPDATE TP_GESTOR]
+    K --> L[SET Estado = 0, Auditoria = @Auditoria]
+    L --> M[WHERE Id = @Id AND Estado = 1]
+    M --> N[Fin]
+    
+    style A fill:#e1f5fe
+    style G fill:#fff3e0
+    style J fill:#ffcdd2
+    style K fill:#4caf50
+    style N fill:#e8f5e8
 ```
 #### Procedimiento almacenado
 ```sql

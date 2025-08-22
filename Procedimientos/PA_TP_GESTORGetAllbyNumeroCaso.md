@@ -10,7 +10,7 @@ flowchart TD
     B --> C[SET NOCOUNT ON]
     C --> D[JOIN TP_GESTOR + TM_MaestroUnificado]
     D --> E[WHERE Estado = 1]
-    E --> F[AND NumeroCaso = ISNULL(@NumeroCasoPadre, @NumeroCaso)]
+    E --> F[AND NumeroCaso = ISNULL @NumeroCasoPadre, @NumeroCaso]
     F --> G[ORDER BY Id DESC]
     G --> H[Retorna gestores básicos]
     H --> I[Fin]

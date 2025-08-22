@@ -9,7 +9,7 @@ flowchart TD
     A[Inicio: PA_TP_GESTORGetAllbyId_Escuela] --> B[Recibe @NumeroCaso]
     B --> C[Declara @NumCasoPadre]
     C --> D[EXEC PA_BPMCasoPadre<br/>para obtener caso padre]
-    D --> E{¿@NumCasoPadre es NULL?}
+    D --> E{¿ @NumCasoPadre es NULL?}
     
     E -->|Sí| F[Asigna @NumCasoPadre = @NumeroCaso]
     E -->|No| G[Usa @NumCasoPadre obtenido]

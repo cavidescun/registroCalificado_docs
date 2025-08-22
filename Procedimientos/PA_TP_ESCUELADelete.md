@@ -10,7 +10,7 @@ flowchart TD
     B --> C[Declara variables y tabla temporal @tDepenActiva]
     C --> D[EXEC ValidarDependencias<br/>para CUN.TP_ESCUELA]
     D --> E[Cuenta dependencias activas]
-    E --> F{¿@cantidad >= 1?}
+    E --> F{¿ @cantidad >= 1?}
     
     F -->|Sí| G[Obtiene primera dependencia]
     G --> H[Construye mensaje de error]

@@ -10,7 +10,7 @@ Si se especifica una sede que contiene "Bogotá", retorna todas las columnas rel
 flowchart TD
     A[Inicio: Get_Infraestructura_Sede] --> B[Recibe @Sede como parámetro]
     B --> C[Declara variables SQL dinámico]
-    C --> D{¿@Sede contiene 'Bogot'?}
+    C --> D{¿ @Sede contiene 'Bogot'?}
     
     D -->|Sí| E[Busca todas las columnas<br/>que contengan 'Bogot%'<br/>usando STRING_AGG]
     D -->|No| F[Busca columna específica<br/>con nombre = @Sede]
@@ -18,14 +18,14 @@ flowchart TD
     E --> G[Construye @columnList con<br/>todas las columnas de Bogotá]
     F --> H[Valida existencia de<br/>columna específica]
     
-    G --> I{¿@columnList tiene valor?}
+    G --> I{¿ @columnList tiene valor?}
     H --> I
     
     I -->|Sí| J[Construye consulta SQL dinámica:<br/>SELECT Infraestructura_Física + columnas]
     I -->|No| K[Lanza RAISERROR:<br/>No se encontraron columnas]
     
     J --> L[Ejecuta consulta con sp_executesql]
-    L --> M[Retorna datos de infraestructura<br/>para sede(s) especificada(s)]
+    L --> M[Retorna datos de infraestructura<br/>para sedes especificadas]
     M --> N[Fin exitoso]
     
     K --> O[Fin con error]
