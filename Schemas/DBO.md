@@ -2,36 +2,35 @@
 ## DBO Schema
 
 ### 1. Descripción de cada procedimiento
-ActualizarCamposLargos: Trunca campos de texto que excedan 250 caracteres en 44 tablas del esquema RCAL, aplicando filtros por código SNIES específico.
-sp_InsertMallasLauraUnificada: Consolida datos de mallas curriculares desde múltiples niveles académicos (Profesional, Técnico, Tecnológico, Especialización) en una tabla centralizada con validaciones anti-duplicados.
-sp_Insert_EstructuraCurricular: Genera la estructura curricular completa de un programa académico mediante tablas temporales, calculando agregaciones por ciclos educativos y consolidando 64 campos diferentes.
-sp_InsertarProfesoresTipoProcesoNuevo: Extrae información docente desde servidor remoto via OPENQUERY, procesando datos académicos complejos con horarios y asignaciones, mapeando profesores con escuelas.
-sp_alterdiagram: Procedimiento estándar de SQL Server para modificar diagramas existentes, actualizando definición binaria con validaciones de permisos.
-sp_creatediagram: Crea nuevos diagramas de base de datos con validaciones de parámetros y control de permisos.
-sp_dropdiagram: Elimina diagramas con validaciones de seguridad robustas.
-sp_helpdiagramdefinition: Retorna la definición completa de un diagrama específico con validaciones de seguridad.
-sp_helpdiagrams: Consulta diagramas accesibles según permisos del usuario con filtros opcionales.
-sp_renamediagram: Renombra diagramas con validaciones de duplicados y control de seguridad.
-sp_upgraddiagrams: Migra diagramas desde formato legacy (dtproperties) hacia formato moderno (sysdiagrams).
+- ActualizarCamposLargos: Trunca campos de texto que excedan 250 caracteres en 44 tablas del esquema RCAL, aplicando filtros por código SNIES específico.
+- sp_InsertMallasLauraUnificada: Consolida datos de mallas curriculares desde múltiples niveles académicos (Profesional, Técnico, Tecnológico, Especialización) en una tabla centralizada con validaciones anti-duplicados.
+- sp_Insert_EstructuraCurricular: Genera la estructura curricular completa de un programa académico mediante tablas temporales, calculando agregaciones por ciclos educativos y consolidando 64 campos diferentes.
+- sp_InsertarProfesoresTipoProcesoNuevo: Extrae información docente desde servidor remoto via OPENQUERY, procesando datos académicos complejos con horarios y asignaciones, mapeando profesores con escuelas.
+- sp_alterdiagram: Procedimiento estándar de SQL Server para modificar diagramas existentes, actualizando definición binaria con validaciones de permisos.
+- sp_creatediagram: Crea nuevos diagramas de base de datos con validaciones de parámetros y control de permisos.
+- sp_dropdiagram: Elimina diagramas con validaciones de seguridad robustas.
+- sp-_helpdiagramdefinition: Retorna la definición completa de un diagrama específico con validaciones de seguridad.
+- sp_helpdiagrams: Consulta diagramas accesibles según permisos del usuario con filtros opcionales.
+- sp_renamediagram: Renombra diagramas con validaciones de duplicados y control de seguridad.
+- sp_upgraddiagrams: Migra diagramas desde formato legacy (dtproperties) hacia formato moderno (sysdiagrams).
 
 ### 2. Flujo de llamadas y dependencias
 Los procedimientos operan en dos grupos independientes:
-Grupo A - Gestión Académica: Los procedimientos académicos no se llaman directamente entre sí, pero siguen un flujo lógico:
+#### Grupo A - Gestión Académica: Los procedimientos académicos no se llaman directamente entre sí, pero siguen un flujo lógico:
 
-sp_InsertMallasLauraUnificada consolida datos base
-sp_Insert_EstructuraCurricular usa esos datos para generar estructuras curriculares
-sp_InsertarProfesoresTipoProcesoNuevo agrega información docente
-ActualizarCamposLargos limpia/normaliza datos finales
+- sp_InsertMallasLauraUnificada consolida datos base
+- sp_Insert_EstructuraCurricular usa esos datos para generar estructuras curriculares
+- sp_InsertarProfesoresTipoProcesoNuevo agrega información docente
+- ActualizarCamposLargos limpia/normaliza datos finales
 
-Grupo B - Diagramas SQL Server: Son procedimientos estándar independientes que no interactúan entre los procedimientos académicos.
+#### Grupo B - Diagramas SQL Server: Son procedimientos estándar independientes que no interactúan entre los procedimientos académicos.
 
 ### 3. Llamadas a otros esquemas
-Sí, varios procedimientos llaman a otros esquemas:
 
-sp_InsertMallasLauraUnificada: Consulta CUN_REPOSITORIO.CUN.MallasLaura y CUN_REPOSITORIO.cun.MALLASCun
-sp_Insert_EstructuraCurricular: Usa RCAL.tbl_Malla y RCAL.Acta
-sp_InsertarProfesoresTipoProcesoNuevo: OPENQUERY a servidor remoto y [CUN_REPOSITORIO].[CUN].[nuevas_escuelas]
-ActualizarCamposLargos: Opera en múltiples tablas del esquema RCAL
+- sp_InsertMallasLauraUnificada: Consulta CUN_REPOSITORIO.CUN.MallasLaura y CUN_REPOSITORIO.cun.MALLASCun
+- sp_Insert_EstructuraCurricular: Usa RCAL.tbl_Malla y RCAL.Acta
+- sp_InsertarProfesoresTipoProcesoNuevo: OPENQUERY a servidor remoto y [CUN_REPOSITORIO].[CUN].[nuevas_escuelas]
+- ActualizarCamposLargos: Opera en múltiples tablas del esquema RCAL
 
 ### 4. Diagrama de interacciones
 
