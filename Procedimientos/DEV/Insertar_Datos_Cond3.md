@@ -777,8 +777,6 @@ GROUP BY TR_SNIES, TR_Semestre
 ORDER BY TR_SNIES, TR_Semestre;
 
 END;
-|
-|Insertar_Datos_Cond4|
 
 ```
 
