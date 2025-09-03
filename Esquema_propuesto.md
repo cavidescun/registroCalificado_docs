@@ -1,4 +1,4 @@
-## Esquema propuesto para Base de datos
+## Modelo Tentativo propuesto para Base de datos
 
 ```mermaid
 erDiagram
